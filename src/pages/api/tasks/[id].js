@@ -1,8 +1,6 @@
 import dbConnect from "utils/mongoose";
 import Task from "models/Task";
 
-import { redirects } from "../next.config";
-
 export default async (req, res) => {
   const {
     method,
