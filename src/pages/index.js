@@ -1,7 +1,10 @@
 import React from "react";
 import { Button, Card, Container, Grid, GridColumn } from "semantic-ui-react";
+import { useRouter } from "next/router";
 
 export default function HomePage({ tasks }) {
+  const router = useRouter();
+
   if (tasks.length === 0)
     return (
       <Grid
@@ -26,7 +29,7 @@ export default function HomePage({ tasks }) {
     );
 
   return (
-    <Container>
+    <Container style={{ padding: "20px" }}>
       <Card.Group itemsPerRow={4}>
         {tasks.map((task) => (
           <Card key={task.id}>
@@ -35,8 +38,15 @@ export default function HomePage({ tasks }) {
               <p style={{ color: "black" }}>{task.description}</p>
             </Card.Content>
             <Card.Content extra>
-              <Button primary>Ver</Button>
-              <Button secondary>Editar</Button>
+              <Button primary onClick={() => router.push(`/tasks/${task._id}`)}>
+                Ver
+              </Button>
+              <Button
+                secondary
+                onClick={() => router.push(`/tasks/${task._id}/Edit`)}
+              >
+                Editar
+              </Button>
             </Card.Content>
           </Card>
         ))}

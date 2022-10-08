@@ -6,7 +6,8 @@ import {
   GridColumn,
   GridRow,
 } from "semantic-ui-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 export default function TaskFormPage() {
   const [newTask, setNewTask] = useState({
@@ -14,9 +15,11 @@ export default function TaskFormPage() {
     description: "",
   });
 
+  const { query, push } = useRouter();
+
   const [errors, setErrors] = useState({});
 
-//Funcion para validar los campos 
+  //Funcion para validar los campos
 
   const validate = () => {
     const errors = {};
@@ -29,18 +32,61 @@ export default function TaskFormPage() {
 
   //Funcion para enviar los datos
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let errors = validate();
 
-    if (Object.keys(errors).length) setErrors(errors);
+    if (Object.keys(errors).length) return setErrors(errors);
 
-    console.log("Enviando");
+    if (query.id) {
+      await updateTask();
+    } else {
+      await createTask();
+    }
+    await push("/");
+  };
+
+  const createTask = async () => {
+    try {
+      await fetch("http://localhost:3000/api/tasks", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newTask),
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const updateTask = async () => {
+    try {
+      await fetch("http://localhost:3000/api/tasks/" + query.id, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newTask),
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleChange = (e) => {
     setNewTask({ ...newTask, [e.target.name]: e.target.value });
   };
+
+  const getTask = async () => {
+    const res = await fetch("http://localhost:3000/api/tasks/" + query.id);
+    const data = await res.json();
+    setNewTask({ title: data.title, description: data.description });
+  };
+
+  useEffect(() => {
+    if (query.id) getTask();
+  }, []);
 
   return (
     <Grid
@@ -51,7 +97,7 @@ export default function TaskFormPage() {
     >
       <GridRow>
         <GridColumn textAlign="center">
-          <h1>Crear Tarea</h1>
+          <h1>{query.id ? "Editar tarea" : "Crear Tarea"}</h1>
           <Form onSubmit={handleSubmit}>
             <FormInput
               label="Titulo"
@@ -66,6 +112,7 @@ export default function TaskFormPage() {
                     }
                   : null
               }
+              value={newTask.title}
             ></FormInput>
             <Form.TextArea
               label="Descripcion"
@@ -80,8 +127,9 @@ export default function TaskFormPage() {
                     }
                   : null
               }
+              value={newTask.description}
             ></Form.TextArea>
-            <Button secondary>Guardar</Button>
+            <Button secondary>{query.id ? "Editar" : "Guardar"}</Button>
           </Form>
         </GridColumn>
       </GridRow>
