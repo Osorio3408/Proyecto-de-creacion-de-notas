@@ -77,7 +77,7 @@ export default function HomePage({ tasks }) {
 }
 
 export async function getServerSideProps(ctx) {
-  const res = await fetch("http://localhost:3000/api/tasks");
+  const res = await fetch("https://proyecto-tareas-nextjs.vercel.app/tasks");
 
   const tasks = await res.json();
 
