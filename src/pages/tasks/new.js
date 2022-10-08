@@ -91,7 +91,7 @@ export default function TaskFormPage() {
 
   useEffect(() => {
     if (query.id) getTask();
-  }, []);
+  });
 
   return (
     <Grid
