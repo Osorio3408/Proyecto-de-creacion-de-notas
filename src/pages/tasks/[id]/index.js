@@ -7,6 +7,7 @@ import {
   Button,
   Confirm,
   Loader,
+  Icon,
 } from "semantic-ui-react";
 import { useRouter } from "next/router";
 
@@ -52,6 +53,7 @@ export default function TaskDetail({ task, error }) {
           <p>{task.description}</p>
           <div>
             <Button color="red" onClick={open} loading={isDeleting}>
+              <Icon className="delete" />
               Eliminar
             </Button>
           </div>

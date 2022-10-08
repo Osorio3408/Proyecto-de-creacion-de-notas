@@ -1,4 +1,4 @@
-import { Menu, Container, Button } from "semantic-ui-react";
+import { Menu, Container, Button, Icon } from "semantic-ui-react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
@@ -10,16 +10,17 @@ export const Navbar = () => {
       <Container>
         <Menu.Item>
           <Link href="/">
-            <img src="/vercel.svg" alt="vercel_img" />
+            <img src="/nextjs.png" alt="vercel_img" />
           </Link>
         </Menu.Item>
         <Menu.Menu position="right">
           <Menu.Item>
             <Button
-              primary
+              className="ui inverted green basic button"
               size="large"
               onClick={() => router.push("/tasks/new")}
             >
+              <Icon className="add"></Icon>
               Nueva Tarea
             </Button>
           </Menu.Item>

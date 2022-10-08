@@ -1,8 +1,18 @@
 import React from "react";
-import { Button, Card, Container, Grid, GridColumn } from "semantic-ui-react";
+import {
+  Button,
+  Card,
+  CardDescription,
+  CardMeta,
+  Container,
+  Grid,
+  GridColumn,
+  Icon,
+} from "semantic-ui-react";
 import { useRouter } from "next/router";
 
 export default function HomePage({ tasks }) {
+  console.log(tasks);
   const router = useRouter();
 
   if (tasks.length === 0)
@@ -34,17 +44,28 @@ export default function HomePage({ tasks }) {
         {tasks.map((task) => (
           <Card key={task.id}>
             <Card.Content>
-              <Card.Header>{task.title}</Card.Header>
-              <p style={{ color: "black" }}>{task.description}</p>
+              <Card.Header>
+                <Icon className="tasks" />
+                {task.title}
+              </Card.Header>
+              <CardMeta>{task.createdAt}</CardMeta>
+              <CardDescription>{task.description}</CardDescription>
             </Card.Content>
             <Card.Content extra>
-              <Button primary onClick={() => router.push(`/tasks/${task._id}`)}>
+              <Button
+                basic
+                color="blue"
+                onClick={() => router.push(`/tasks/${task._id}`)}
+              >
+                <Icon className="eye" />
                 Ver
               </Button>
               <Button
-                secondary
+                basic
+                color="black"
                 onClick={() => router.push(`/tasks/${task._id}/Edit`)}
               >
+                <Icon className="edit outline" />
                 Editar
               </Button>
             </Card.Content>
@@ -68,15 +89,3 @@ export async function getServerSideProps(ctx) {
     },
   };
 }
-
-// export async function getServerSideProps() {
-//   const res = await fetch("http://localhost:3000/api/tasks");
-
-//   const tasks = await res.json();
-
-//   console.log(tasks);
-
-//   return {
-//     props: {},
-//   };
-// }
