@@ -1,4 +1,4 @@
-import { Menu, Container, Button, Icon } from "semantic-ui-react";
+import { Menu, Container, Button, Icon, Image } from "semantic-ui-react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
@@ -10,7 +10,7 @@ export const Navbar = () => {
       <Container>
         <Menu.Item>
           <Link href="/">
-            <img src="/nextjs.png" alt="vercel_img" />
+            <Image src="/nextjs.png" size="tiny" />
           </Link>
         </Menu.Item>
         <Menu.Menu position="right">

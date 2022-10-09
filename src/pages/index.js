@@ -8,6 +8,7 @@ import {
   Grid,
   GridColumn,
   Icon,
+  Image,
 } from "semantic-ui-react";
 import { useRouter } from "next/router";
 
@@ -26,9 +27,11 @@ export default function HomePage({ tasks }) {
         <Grid.Row>
           <Grid.Column textAlign="center">
             <h1>No hay tareas todavia!</h1>
-            <img
+            <Image
+              style={{ display: "inline-block" }}
               src="https://cdn-icons-png.flaticon.com/128/7466/7466140.png"
               alt="No hay tareas disponibles"
+              size="medium"
             />
             <div>
               <Button primary>Crea una Tarea</Button>
@@ -77,7 +80,7 @@ export default function HomePage({ tasks }) {
 }
 
 export async function getServerSideProps(ctx) {
-  const res = await fetch("https://proyecto-tareas-nextjs.vercel.app/tasks");
+  const res = await fetch("http://localhost:3000/api/tasks");
 
   const tasks = await res.json();
 
