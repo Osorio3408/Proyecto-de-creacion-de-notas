@@ -48,7 +48,7 @@ export default function TaskFormPage() {
 
   const createTask = async () => {
     try {
-      await fetch("http://localhost:3000/api/tasks", {
+      await fetch("https://proyecto-tareas-nextjs.vercel.app/tasks", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -62,13 +62,16 @@ export default function TaskFormPage() {
 
   const updateTask = async () => {
     try {
-      await fetch("http://localhost:3000/api/tasks/" + query.id, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newTask),
-      });
+      await fetch(
+        "https://proyecto-tareas-nextjs.vercel.app/tasks" + query.id,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newTask),
+        }
+      );
     } catch (error) {
       console.log(error);
     }
@@ -79,14 +82,16 @@ export default function TaskFormPage() {
   };
 
   const getTask = async () => {
-    const res = await fetch("http://localhost:3000/api/tasks/" + query.id);
+    const res = await fetch(
+      "https://proyecto-tareas-nextjs.vercel.app/tasks" + query.id
+    );
     const data = await res.json();
     setNewTask({ title: data.title, description: data.description });
   };
 
   useEffect(() => {
     if (query.id) getTask();
-  }, []);
+  });
 
   return (
     <Grid
