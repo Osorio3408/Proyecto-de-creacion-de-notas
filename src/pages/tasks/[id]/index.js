@@ -10,6 +10,7 @@ import {
   Icon,
 } from "semantic-ui-react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 export default function TaskDetail({ task, error }) {
   const [confirm, setConfirm] = useState(false);
@@ -52,6 +53,12 @@ export default function TaskDetail({ task, error }) {
           <h1>{task.title}</h1>
           <p>{task.description}</p>
           <div>
+            <Link href="/">
+              <Button color="blue">
+                <Icon className="reply" />
+                Volver
+              </Button>
+            </Link>
             <Button color="red" onClick={open} loading={isDeleting}>
               <Icon className="delete" />
               Eliminar

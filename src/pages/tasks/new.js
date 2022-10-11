@@ -5,9 +5,11 @@ import {
   Grid,
   GridColumn,
   GridRow,
+  Icon,
 } from "semantic-ui-react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 export default function TaskFormPage() {
   const [newTask, setNewTask] = useState({
@@ -129,7 +131,21 @@ export default function TaskFormPage() {
               }
               value={newTask.description}
             ></Form.TextArea>
-            <Button secondary>{query.id ? "Editar" : "Guardar"}</Button>
+            <Link href="/">
+              <Button color="blue">
+                <Icon className="reply" />
+                Volver
+              </Button>
+            </Link>
+            <Button secondary>
+              {" "}
+              {query.id ? (
+                <Icon className="edit outline" />
+              ) : (
+                <Icon className="check" />
+              )}
+              {query.id ? " Editar " : " Guardar "}{" "}
+            </Button>
           </Form>
         </GridColumn>
       </GridRow>
