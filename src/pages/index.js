@@ -13,7 +13,6 @@ import {
 import { useRouter } from "next/router";
 
 export default function HomePage({ tasks }) {
-  console.log(tasks);
   const router = useRouter();
 
   if (tasks.length === 0)
@@ -80,7 +79,9 @@ export default function HomePage({ tasks }) {
 }
 
 export async function getServerSideProps(ctx) {
-  const res = await fetch("http://localhost:3000/api/tasks");
+  const { URL } = process.env;
+
+  const res = await fetch(URL + "/api/tasks");
 
   const tasks = await res.json();
 
