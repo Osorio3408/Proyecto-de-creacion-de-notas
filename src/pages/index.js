@@ -22,8 +22,7 @@ export default function HomePage({ tasks }) {
         centered
         verticalAlign="middle"
         columns="1"
-        style={{ height: "80vh" }}
-      >
+        style={{ height: "80vh" }}>
         <Grid.Row>
           <Grid.Column textAlign="center">
             <h1>No hay tareas todavia!</h1>
@@ -58,16 +57,14 @@ export default function HomePage({ tasks }) {
               <Button
                 basic
                 color="blue"
-                onClick={() => router.push(`/tasks/${task._id}`)}
-              >
+                onClick={() => router.push(`/tasks/${task._id}`)}>
                 <Icon className="eye" />
                 Ver
               </Button>
               <Button
                 basic
                 color="black"
-                onClick={() => router.push(`/tasks/${task._id}/Edit`)}
-              >
+                onClick={() => router.push(`/tasks/${task._id}/Edit`)}>
                 <Icon className="edit outline" />
                 Editar
               </Button>
@@ -80,7 +77,7 @@ export default function HomePage({ tasks }) {
 }
 
 export async function getServerSideProps(ctx) {
-  const res = await fetch("http://localhost:3000/api/tasks");
+  const res = await fetch(`/api/tasks`);
 
   const tasks = await res.json();
 

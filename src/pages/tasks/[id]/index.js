@@ -23,7 +23,7 @@ export default function TaskDetail({ task, error }) {
   const deleTask = async () => {
     const { id } = query;
     try {
-      await fetch(`http://localhost:3000/api/tasks/${id}`, {
+      await fetch(`/api/tasks/${id}`, {
         method: "DELETE",
       });
     } catch (error) {
@@ -46,8 +46,7 @@ export default function TaskDetail({ task, error }) {
       centered
       verticalAlign="middle"
       columns="1"
-      style={{ height: "80vh" }}
-    >
+      style={{ height: "80vh" }}>
       <GridRow>
         <GridColumn textAlign="center">
           <h1>{task.title}</h1>
@@ -78,7 +77,7 @@ export default function TaskDetail({ task, error }) {
 }
 
 export async function getServerSideProps({ query: { id } }) {
-  const res = await fetch(`http://localhost:3000/api/tasks/${id}`);
+  const res = await fetch(`/api/tasks/${id}`);
 
   if (res.status === 200) {
     const task = await res.json();

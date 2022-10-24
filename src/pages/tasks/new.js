@@ -50,7 +50,7 @@ export default function TaskFormPage() {
 
   const createTask = async () => {
     try {
-      await fetch("http://localhost:3000/api/tasks", {
+      await fetch(`/api/tasks`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -64,7 +64,7 @@ export default function TaskFormPage() {
 
   const updateTask = async () => {
     try {
-      await fetch("http://localhost:3000/api/tasks/" + query.id, {
+      await fetch(`/api/tasks/` + query.id, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -95,8 +95,7 @@ export default function TaskFormPage() {
       centered
       verticalAlign="middle"
       columns="3"
-      style={{ height: "80vh" }}
-    >
+      style={{ height: "80vh" }}>
       <GridRow>
         <GridColumn textAlign="center">
           <h1>{query.id ? "Editar tarea" : "Crear Tarea"}</h1>
@@ -114,8 +113,7 @@ export default function TaskFormPage() {
                     }
                   : null
               }
-              value={newTask.title}
-            ></FormInput>
+              value={newTask.title}></FormInput>
             <Form.TextArea
               label="Descripcion"
               placeholder="Decripcion..."
@@ -129,8 +127,7 @@ export default function TaskFormPage() {
                     }
                   : null
               }
-              value={newTask.description}
-            ></Form.TextArea>
+              value={newTask.description}></Form.TextArea>
             <Link href="/">
               <Button color="blue">
                 <Icon className="reply" />
