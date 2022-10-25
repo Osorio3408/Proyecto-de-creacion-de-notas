@@ -81,7 +81,7 @@ export default function TaskFormPage() {
   };
 
   const getTask = async () => {
-    const res = await fetch("http://localhost:3000/api/tasks/" + query.id);
+    const res = await fetch(`/api/tasks/` + query.id);
     const data = await res.json();
     setNewTask({ title: data.title, description: data.description });
   };

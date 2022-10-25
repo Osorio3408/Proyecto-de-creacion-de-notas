@@ -76,8 +76,10 @@ export default function TaskDetail({ task, error }) {
   );
 }
 
+const { URL } = process.env;
+
 export async function getServerSideProps({ query: { id } }) {
-  const res = await fetch(`/api/tasks/${id}`);
+  const res = await fetch(`${URL}/api/tasks/${id}`);
 
   if (res.status === 200) {
     const task = await res.json();

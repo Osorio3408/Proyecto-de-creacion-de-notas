@@ -76,8 +76,10 @@ export default function HomePage({ tasks }) {
   );
 }
 
+const { URL } = process.env;
+
 export async function getServerSideProps(ctx) {
-  const res = await fetch(`/api/tasks`);
+  const res = await fetch(`${URL}/api/tasks`);
 
   const tasks = await res.json();
 
