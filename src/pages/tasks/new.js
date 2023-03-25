@@ -80,10 +80,21 @@ export default function TaskFormPage() {
     setNewTask({ ...newTask, [e.target.name]: e.target.value });
   };
 
+  // const getTask = async () => {
+  //   const res = await fetch(`/api/tasks/` + query.id);
+  //   const data = await res.json();
+  //   setNewTask({ title: data.title, description: data.description });
+  // };
+
+  //Modificación
   const getTask = async () => {
     const res = await fetch(`/api/tasks/` + query.id);
     const data = await res.json();
-    setNewTask({ title: data.title, description: data.description });
+    setNewTask((prevState) => ({
+      ...prevState,
+      title: data.title,
+      description: data.description,
+    }));
   };
 
   useEffect(() => {
