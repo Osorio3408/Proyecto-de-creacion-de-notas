@@ -37,16 +37,22 @@ export default function TaskFormPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     let errors = validate();
-
-    if (Object.keys(errors).length) return setErrors(errors);
-
+  
+    if (Object.keys(errors).length) {
+      setErrors(errors);
+      return;
+    }
+  
     if (query.id) {
       await updateTask();
     } else {
       await createTask();
     }
+  
+    setErrors({}); // Restablece los errores después de enviar los datos
     await push("/");
   };
+  
 
   const createTask = async () => {
     try {
@@ -98,8 +104,15 @@ export default function TaskFormPage() {
   };
 
   useEffect(() => {
-    if (query.id) getTask();
-  });
+    if (query.id) {
+      getTask();
+    }
+  
+    return () => {
+      // Limpieza: Restablece el estado de newTask al desmontar el componente
+      setNewTask({ title: "", description: "" });
+    };
+  }, []);
 
   return (
     <Grid
