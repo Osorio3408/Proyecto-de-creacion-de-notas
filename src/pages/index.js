@@ -44,7 +44,7 @@ export default function HomePage({ tasks }) {
     <Container style={{ padding: "20px" }}>
       <Card.Group itemsPerRow={4}>
         {tasks.map((task) => (
-          <Card key={task.id}>
+          <Card key={task.id} style={{ width: "100%" }}>
             <Card.Content>
               <Card.Header>
                 <Icon className="tasks" />

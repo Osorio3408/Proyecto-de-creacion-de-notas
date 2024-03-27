@@ -37,22 +37,21 @@ export default function TaskFormPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     let errors = validate();
-  
+
     if (Object.keys(errors).length) {
       setErrors(errors);
       return;
     }
-  
+
     if (query.id) {
       await updateTask();
     } else {
       await createTask();
     }
-  
+
     setErrors({}); // Restablece los errores después de enviar los datos
     await push("/");
   };
-  
 
   const createTask = async () => {
     try {
@@ -107,7 +106,7 @@ export default function TaskFormPage() {
     if (query.id) {
       getTask();
     }
-  
+
     return () => {
       // Limpieza: Restablece el estado de newTask al desmontar el componente
       setNewTask({ title: "", description: "" });
@@ -119,9 +118,9 @@ export default function TaskFormPage() {
       centered
       verticalAlign="middle"
       columns="3"
-      style={{ height: "80vh" }}>
+      style={{ height: "80vh", width: "100%" }}>
       <GridRow>
-        <GridColumn textAlign="center">
+        <GridColumn textAlign="center" style={{ width: "100%" }}>
           <h1>{query.id ? "Editar tarea" : "Crear Tarea"}</h1>
           <Form onSubmit={handleSubmit}>
             <FormInput
