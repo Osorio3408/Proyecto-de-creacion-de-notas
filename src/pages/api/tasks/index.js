@@ -10,7 +10,10 @@ export default async function handler(req, res) {
     case "GET":
       try {
         const tasks = await Task.find();
-        return res.status(200).json(tasks);
+        console.log(tasks.length);
+        return tasks.length === 0
+          ? res.status(200).json({ message: "no hay eventos" })
+          : res.status(200).json(tasks);
       } catch (error) {
         return res.status(400).json({ error: error.message });
       }
@@ -25,6 +28,6 @@ export default async function handler(req, res) {
       }
 
     default:
-      return res.status(400).json({ msg: "este metodo no se soporta" });
+      return res.status(400).json({ error: "Este método no se soporta" });
   }
 }

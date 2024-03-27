@@ -21,6 +21,8 @@ export default function TaskFormPage() {
 
   const [errors, setErrors] = useState({});
 
+  const router = useRouter();
+
   //Funcion para validar los campos
 
   const validate = () => {
@@ -118,9 +120,9 @@ export default function TaskFormPage() {
       centered
       verticalAlign="middle"
       columns="3"
-      style={{ height: "80vh", width: "100%" }}>
+      style={{ height: "80vh", width: "auto" }}>
       <GridRow>
-        <GridColumn textAlign="center" style={{ width: "100%" }}>
+        <GridColumn textAlign="center" className="ui container">
           <h1>{query.id ? "Editar tarea" : "Crear Tarea"}</h1>
           <Form onSubmit={handleSubmit}>
             <FormInput
@@ -151,12 +153,10 @@ export default function TaskFormPage() {
                   : null
               }
               value={newTask.description}></Form.TextArea>
-            <Link href="/">
-              <Button color="blue">
-                <Icon className="reply" />
-                Volver
-              </Button>
-            </Link>
+            <Button onClick={() => router.push("/")} color="blue">
+              <Icon className="reply" />
+              Volver
+            </Button>
             <Button secondary>
               {" "}
               {query.id ? (

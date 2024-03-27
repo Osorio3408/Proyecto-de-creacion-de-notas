@@ -6,7 +6,6 @@ import {
   CardMeta,
   Container,
   Grid,
-  GridColumn,
   Icon,
   Image,
 } from "semantic-ui-react";
@@ -16,35 +15,40 @@ export default function HomePage({ tasks }) {
   console.log(tasks);
   const router = useRouter();
 
-  if (tasks.length === 0)
+  if (!tasks || tasks.length === 0) {
     return (
-      <Grid
-        centered
-        verticalAlign="middle"
-        columns="1"
-        style={{ height: "80vh", margin: "0px" }}>
-        <Grid.Row>
-          <Grid.Column textAlign="center">
-            <h1>No hay tareas todavia!</h1>
-            <Image
-              style={{ display: "inline-block" }}
-              src="https://cdn-icons-png.flaticon.com/128/7466/7466140.png"
-              alt="No hay tareas disponibles"
-              size="medium"
-            />
-            <div>
-              <Button primary>Crea una Tarea</Button>
-            </div>
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
+      <Container style={{ padding: "20px" }}>
+        <Grid
+          centered
+          verticalAlign="middle"
+          columns="1"
+          style={{ height: "80vh", margin: "0px" }}>
+          <Grid.Row>
+            <Grid.Column textAlign="center">
+              <h1>No hay tareas todavía!</h1>
+              <Image
+                style={{ display: "inline-block" }}
+                src="https://cdn-icons-png.flaticon.com/128/7466/7466140.png"
+                alt="No hay tareas disponibles"
+                size="medium"
+              />
+              <div>
+                <Button onClick={() => router.push("/tasks/new")} primary>
+                  Crea una Tarea
+                </Button>
+              </div>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </Container>
     );
+  }
 
   return (
     <Container style={{ padding: "20px" }}>
       <Card.Group itemsPerRow={4}>
         {tasks.map((task) => (
-          <Card key={task.id} style={{ width: "100%" }}>
+          <Card key={task.id} className="ui container">
             <Card.Content>
               <Card.Header>
                 <Icon className="tasks" />
@@ -79,15 +83,22 @@ export default function HomePage({ tasks }) {
 const { URL } = process.env;
 
 export async function getServerSideProps(ctx) {
-  const res = await fetch(`${URL}/api/tasks`);
-
-  const tasks = await res.json();
-
-  console.log(tasks);
-
-  return {
-    props: {
-      tasks,
-    },
-  };
+  try {
+    const res = await fetch(`${URL}/api/tasks`);
+    const data = await res.json();
+    const tasks = Array.isArray(data) ? data : [];
+    console.log(data);
+    return {
+      props: {
+        tasks,
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching tasks:", error);
+    return {
+      props: {
+        tasks: [],
+      },
+    };
+  }
 }
