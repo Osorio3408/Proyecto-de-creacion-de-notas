@@ -22,8 +22,8 @@ export default function HomePage({ tasks }) {
         centered
         verticalAlign="middle"
         columns="1"
-        style={{ height: "80vh" }}>
-        <Grid.Row>
+        style={{ height: "80vh", margin: "0px" }}>
+        <Grid.Row style={{ width: "10px" }}>
           <Grid.Column textAlign="center">
             <h1>No hay tareas todavia!</h1>
             <Image
